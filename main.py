@@ -2,12 +2,12 @@
 """perec
 
 Usage:
-    perec new project [path]
+    perec new project [<path>]
     perec -h | --help
     perec -v | --version
 
 Options:
-    new project [path]  Starts a new perec project. If no path is chosen, the progam will create a new project in the current working directory
+    new project [<path>]  Starts a new perec project. If no path is chosen, the progam will create a new project in the current working directory
     -h --help   Shows this screen
     -v --version   Shows the version number of perec
 
@@ -16,8 +16,8 @@ Options:
 
 ### Imports ###
 from docopt import docopt
-
-from src import new
+import os
+from src import new, lib
 
 def main():
     """
@@ -30,4 +30,11 @@ if __name__ == '__main__':
 
     # Start a new project
     if arguments['new'] and arguments['project']:
+
+        # Do a check on the user provided path (if one exists) before we do anything else
+        path = arguments['<path>']
+        if path != None:
+            if not lib.is_pathname_valid(path): raise TypeError("The provided path name is not valid")
+            if os.path.exists(path): raise TypeError("The provided pathname points to an existing directory. Please delete it to continue.")
+
         new.new_project(arguments)

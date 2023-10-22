@@ -5,11 +5,11 @@ from InquirerPy.validator import EmptyInputValidator
 from .lib import *
 from .pattern import pluralize
 
-
 def new_project(arguments: dict) -> None:
     """
     Starts a new perec project using the terminal prompt.
     """
+
     print("Starting a new project!")
     print()
     
@@ -98,5 +98,3 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     print()
     print("Creating project! Sit tight...")
 
-    print(input)
-    pass
