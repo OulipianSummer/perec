@@ -13,14 +13,14 @@ def new_project(path: Union[bool, str]) -> None:
     """
     print("Starting a new project!\n")
     
-    project_name = inquirer.text(
+    name = inquirer.text(
         message="Project Name: ",
         validate=EmptyInputValidator(),
         mandatory=True,
         mandatory_message="A project name is required",
     ).execute()
     
-    project_machine_name = snake_case(project_name)
+    machine_name = snake_case(name)
 
     description = inquirer.text(
         message="Description: ",     
@@ -60,6 +60,4 @@ def new_project(path: Union[bool, str]) -> None:
             mandatory_message="Enter a singular name for your sections."
         ).execute()
 
-        section_type_other = pluralize(section_type_other) 
-
-        print(section_type_other)
+        section_type = pluralize(section_type_other) 
