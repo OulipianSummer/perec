@@ -94,7 +94,7 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     """
     Creates a project folder from the given user input and cli arguments.
 
-    In the future, this should also allow users to pull from pre-defined tours, mols, or lists in their system.
+    In the future, this should also allow users to pull from pre-defined tours, mols, or lists in their system and list them in config.yml.
     """
     print()
     print("Creating project! Sit tight...")
