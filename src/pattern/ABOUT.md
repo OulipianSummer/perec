@@ -8,6 +8,8 @@ It also happens to be a fantastic tool for parsing natural language input, which
 
 The original package is pretty large, too large for our purposes here, and it has a long dependency chain including tools we simply will not use. As a result, it seems best to only import the parts we want as a sort of polyfill library, at least until we can figure something else out.
 
+Another relevent issue is that it isn't currently a part of nixpkgs, and as I'm using NixOS to develop this program, I don't really have an easy way to access this library without porting it into nixpkgs.
+
 The functions we're interested in are found in the `inflect.py` file: `singularize` and `pluralize`.
 
 It isn't clear whether or not there are more functions or tools we may want to import later, but as of last writing these two functions are tested to work and are good enough for now.
