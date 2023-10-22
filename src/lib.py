@@ -3,7 +3,6 @@ from re import sub
 import os
 import sys
 
-
 MIN_PROJECT_SIZE = 5
 MAX_PROJECT_SIZE = 10
 DEFAULT_PROJECT_SIZE = 8
@@ -22,22 +21,30 @@ DEFAULT_PROJECT_SIZE = 8
 # The "key" key is a keyboard shortcut for selecting the given choice.
 #-------------------------------------------------------------------------------------------------------#
 SECTION_CHOICES = [
-  {"key": "c", "name":"Chapters", "value":"chapter"},
-  {"key": "s", "name":"Stanzas", "value":"stanza"},
-  {"key": "g", "name":"Paragraphs", "value":"paragraph"},
-  {"key": "p", "name":"Poems", "value":"poem"},
-  {"key": "o", "name":"Other", "value":"other"}
+    {"key": "c", "name":"Chapters", "value":"chapter"},
+    {"key": "s", "name":"Stanzas", "value":"stanza"},
+    {"key": "g", "name":"Paragraphs", "value":"paragraph"},
+    {"key": "p", "name":"Poems", "value":"poem"},
+    {"key": "o", "name":"Other", "value":"other"}
 ]
 
 def text_to_var(s):
-  """
-  Convert user input text to a snake case variable name free from punctuation
-  """
-  return '_'.join(
-    sub('([A-Z][a-z]+)', r' \1',
-    sub('([A-Z]+)', r' \1',
-    sub('([!@#\$%\^&\*,.?:_\-\'\"])', r'', # Strip out punctuation characters we don't want
-    s.replace('-', ' ')))).split()).lower()
+    """
+    Convert user input text to a snake case variable name free from punctuation
+    """
+    return '_'.join(
+        sub('([A-Z][a-z]+)', r' \1',
+        sub('([A-Z]+)', r' \1',
+        sub('([!@#\$%\^&\*,.?:_\-\'\"])', r'', # Strip out punctuation characters we don't want
+        s.replace('-', ' ')))).split()).lower()
+
+
+def check_path(path:str) -> None:
+    """
+    A function that pulls together a few path validation techniques
+    """
+    if not is_pathname_valid(path): raise TypeError("The provided path name is not valid")
+    if os.path.exists(path): raise TypeError("The provided pathname points to an existing directory. Please delete it to continue.")
 
 
 # Sadly, Python fails to provide the following magic number for us.

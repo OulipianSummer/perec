@@ -19,22 +19,37 @@ from docopt import docopt
 import os
 from src import new, lib
 
-def main():
+OPS_NEW_PROJECT = "new_project"
+
+def main(op: str, arguments: dict) -> None:
     """
     Executes the main function
     """
+
+    # Execute top level functions after input validation
+    match op:
+        case OPS_NEW_PROJECT:
+            new.new_project(arguments)
+
     pass
 
+# Parse arguments and throw exceptions if needed
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='0.1')
 
-    # Start a new project
-    if arguments['new'] and arguments['project']:
+    try:
 
-        # Do a check on the user provided path (if one exists) before we do anything else
-        path = arguments['<path>']
-        if path != None:
-            if not lib.is_pathname_valid(path): raise TypeError("The provided path name is not valid")
-            if os.path.exists(path): raise TypeError("The provided pathname points to an existing directory. Please delete it to continue.")
+        # Start a new project
+        if arguments['new'] and arguments['project']:
 
-        new.new_project(arguments)
+            # Do a pre-check on the user provided path. The pathname must at least be plausible and it must NOT exist in order to proceed.
+            # Also modify the argument path using os.path.abspath so we can use it later
+            if arguments['<path>'] != None:
+                arguments['<path>'] = os.path.abspath(arguments['<path>']);
+                path = arguments['<path>']
+                lib.check_path(path)
+
+            main(OPS_NEW_PROJECT, arguments)
+
+    except KeyboardInterrupt:
+        pass

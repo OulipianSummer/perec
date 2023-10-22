@@ -3,6 +3,6 @@ machine_name: "life_a_users_manual"
 description: "A novel by Georges Perec"
 size: 10
 section_type: "Chapter"
-lists:
-mols:
+lists: []
+mols: []
 tour: "life_a_users_manual"

@@ -3,7 +3,9 @@ from InquirerPy import inquirer
 from InquirerPy.prompts.expand import ExpandChoice
 from InquirerPy.validator import EmptyInputValidator
 from .lib import *
+import os
 from .pattern import pluralize
+from yaml import dump
 
 def new_project(arguments: dict) -> None:
     """
@@ -76,15 +78,14 @@ def new_project(arguments: dict) -> None:
         "machine_name": machine_name,
         "description": description,
         "size": size,
-        "section_type": section_type
+        "section_type": section_type,
+        "lists": [],
+        "mols": [],
+        "tour": ""
     }
 
     # Pass the user input on to another function to create the project folder
-    try:
-        create_project_folder(arguments, input)
-    except:
-        # FIXME: Hyper-generic error handling
-        print("Error")
+    create_project_folder(arguments, input)
 
     return
 
@@ -98,3 +99,27 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     print()
     print("Creating project! Sit tight...")
 
+    path = arguments['<path>']
+
+    # If no path was provided at command time, then make one based on the user input and the current working directory
+    if path == None: 
+        path = os.path.join(os.getcwd(), input["machine_name"])
+        check_path(path)
+
+    # Create the project directory
+    os.mkdir(path)
+    
+    # Create the internal directory structure
+    lists_path = os.path.join(path, 'lists')
+    mols_path = os.path.join(path, 'mols')
+    tours_path = os.path.join(path, 'tours')
+    os.mkdir(lists_path)
+    os.mkdir(mols_path)
+    os.mkdir(tours_path)
+
+    # Create the config file
+    config_path = os.path.join(path, 'config.yml')
+    stream = open(config_path, "w")
+    config_file = dump(input, stream)
+    stream.close()
+    
