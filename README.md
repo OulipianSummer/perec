@@ -2,11 +2,13 @@
 
 `perec` is a command line tool used for generating a chapter-by-chapter list of writing prompts using the infamous and mult-layered constrained writing system developed by Georges Perec for his masterpiece novel [*Life: A User's Manual*](https://en.wikipedia.org/wiki/Life:_A_User%27s_Manual).
 
-Perec's novel uses a list elements created by the author to create unique (but not random!) writing prompts for each chapter of the book. 
+Perec's novel uses a list elements created by the author to create unique (but not random!) writing prompts for each chapter of the book. These lists were made up of things like type of furniture, colors, clothes, types of written works, the titles of actual novels, and much much more.
 
-The lists then get processed into a list if writing prompts using the solutions two types of puzzles that help decide their combinations and order of appearance: [knight's tours](https://en.wikipedia.org/wiki/Knight%27s_tour) and [greco-latin squares](https://handwiki.org/wiki/Graeco-Latin_square).
+The lists of elements then get processed into a list if writing prompts using the solutions two types of puzzles that help decide their combinations and order of appearance: [knight's tours](https://en.wikipedia.org/wiki/Knight%27s_tour) and [greco-latin squares](https://handwiki.org/wiki/Graeco-Latin_square).
 
-This process is fairly complicated to explain, something I also hope to refine and make more accessible by working on this project, so I direct you to read [this Wikipedia entry](https://en.wikipedia.org/wiki/Life:_A_User's_Manual#Elements) to get a better idea of the mechanics.
+This process is fairly complicated to explain, something I also hope to refine and make more accessible by working on this project, so I direct you to read [this Wikipedia entry](https://en.wikipedia.org/wiki/Life:_A_User's_Manual#Elements) to get a better idea of the mechanics that made up his book.
+
+Suffice it to say, this project aims to allow a user to recreate this constrianed writing system with significantly less time and headache than it took Perec to do for himself.
 
 ## What does it do?
 
