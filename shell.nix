@@ -8,7 +8,7 @@ pkgs.mkShell {
         (python3.withPackages (p : [
           p.docopt
           p.inquirerpy
-          p.pip
+          p.pyyaml
         ]))
     ];
 }
