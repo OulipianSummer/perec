@@ -13,6 +13,7 @@ def new_project(path: Union[bool, str]) -> None:
     """
     print("Starting a new project!\n")
     
+    # Get the project name from the user
     name = inquirer.text(
         message="Project Name: ",
         validate=EmptyInputValidator(),
@@ -20,8 +21,9 @@ def new_project(path: Union[bool, str]) -> None:
         mandatory_message="A project name is required",
     ).execute()
     
+    # Create a machine name from the project name
     machine_name = snake_case(name)
-
+    
     description = inquirer.text(
         message="Description: ",     
     ).execute()
@@ -52,7 +54,7 @@ def new_project(path: Union[bool, str]) -> None:
         section_type = "Chapter"
     elif section_type == "Other":
 
-        # Give users a chance to define their own input
+        # Give users a chance to define their section type
         section_type_other = inquirer.text(
             message="Section Type: ",
             mandatory=True,

@@ -1,8 +1,8 @@
 name: "Life: A Uer's Manual"
-machine_name: "life_a_user's_manual"
+machine_name: "life_a_users_manual"
 description: "A novel by Georges Perec"
 size: 10
 section_type: "Chapter"
 lists:
 mols:
-tour: "life_a_user's_manual"
+tour: "life_a_users_manual"
