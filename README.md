@@ -12,7 +12,7 @@ Suffice it to say, this project aims to allow a user to recreate this constriane
 
 ## What does it do?
 
-Right now, not much. I've played with this idea on-and-off for years now and I've even made a [semi-working but oh so ugly Python script]((https://github.com/OulipianSummer/Perecian)) that already implements the functionality of this project, but it is bittle and impossible to maintain. In the spirit of constantly improving, I'm starting this project from scratch and trying to build it so it is easier to manage, share, and expand.
+Right now, not much. I've played with this idea on-and-off for years now and I've even made a [semi-working but oh so ugly Python script](https://github.com/OulipianSummer/Perecian) that already implements the functionality of this project, but it is bittle and impossible to maintain. In the spirit of constantly improving, I'm starting this project from scratch and trying to build it so it is easier to manage, share, and expand.
 
 What this project *aims* to do is create a terminal program that allows you to do several things:
 
