@@ -6,6 +6,7 @@ pkgs.mkShell {
         vim
         (python3.withPackages (p : [
           p.docopt
+          p.inquirerpy
         ]))
     ];
 }
