@@ -30,4 +30,4 @@ if __name__ == '__main__':
 
     # Start a new project
     if arguments['new'] and arguments['project']:
-        new.new_project(arguments['path'])
+        new.new_project(arguments)
