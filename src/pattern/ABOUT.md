@@ -6,7 +6,7 @@ This package is designed to act as an advanced web miner and content scraper for
 
 It also happens to be a fantastic tool for parsing natural language input, which is what we're interested in.
 
-The original package is pretty large, too large for our purposes here, and it has a long dependency chain including tools we simply will not use. As a result, it seems best to only import the parts we want,as a sort of polyfill library, at least until we can figure something else out.
+The original package is pretty large, too large for our purposes here, and it has a long dependency chain including tools we simply will not use. As a result, it seems best to only import the parts we want as a sort of polyfill library, at least until we can figure something else out.
 
 The functions we're interested in are found in the `inflect.py` file: `singularize` and `pluralize`.
 
