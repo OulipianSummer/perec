@@ -12,8 +12,9 @@ DEFAULT_PROJECT_SIZE = 8
 # The list below organizes a few popular choices as well as the "Other" option which indicates custom input.
 #
 # The basic idea is that the "name" key in the dict represents the user facing name of the section in the
-# inquirer interface. This should always be plural.
-# The "value" key is the internal, machine-friendly name that gets passed to perec.
+# inquirer interface. This should always be pluraland the first character uppercase.
+# The "value" key is the internal, machine-friendly name that gets passed to perec. This is always
+# lower case alphanumeric characers separated by underscores (snake case).
 # The "key" key is a keyboard shortcut for selecting the given choice.
 #-------------------------------------------------------------------------------------------------------#
 SECTION_CHOICES = [
