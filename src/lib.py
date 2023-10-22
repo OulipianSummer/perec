@@ -8,7 +8,7 @@ DEFAULT_PROJECT_SIZE = 8
 # Section Choices
 #
 # Users are allowed to choose from (or create) their own section headers called "section types".
-# This helps users organize their prompts according to the type of prohect they are using perec for.
+# This helps users organize their prompts according to the type of project they are using perec for.
 # The list below organizes a few popular choices as well as the "Other" option which indicates custom input.
 #
 # The basic idea is that the "name" key in the dict represents the user facing name of the section in the
