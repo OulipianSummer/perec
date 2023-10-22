@@ -1,0 +1,2 @@
+docopt==0.6.2
+InquirerPy==0.3.4
