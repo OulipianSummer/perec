@@ -122,4 +122,14 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     stream = open(config_path, "w")
     config_file = dump(input, stream)
     stream.close()
+
+    did_create = os.path.exists(path)
+
+    if did_create:
+        print()
+        print("Project created successfully!")
+        print("Location: %s" % path)
+    else:
+        print()
+        print("The project was not created successfully. Please review your input and try again.")
     

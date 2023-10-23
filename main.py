@@ -3,11 +3,13 @@
 
 Usage:
     perec new project [<path>]
+    perec new mols [<size>] [<number>]
     perec -h | --help
     perec -v | --version
 
 Options:
     new project [<path>]  Starts a new perec project. If no path is chosen, the progam will create a new project in the current working directory
+    new mols [<size>] [<number>]  Generate <number> of mututally orthogonal latin square of <size>. If both arguments are omitted, perec will use the info from your current project.
     -h --help   Shows this screen
     -v --version   Shows the version number of perec
 
@@ -19,7 +21,9 @@ from docopt import docopt
 import os
 from src import new, lib
 
-OPS_NEW_PROJECT = "new_project"
+class Operations:
+    NEW_PROJECT = "new_project"
+    NEW_MOLS = "new_mols"
 
 def main(op: str, arguments: dict) -> None:
     """
@@ -28,8 +32,11 @@ def main(op: str, arguments: dict) -> None:
 
     # Execute top level functions after input validation
     match op:
-        case OPS_NEW_PROJECT:
+        case Operations.NEW_PROJECT:
             new.new_project(arguments)
+
+        case Operations.NEW_MOLS:
+            #squares.new_mols(arguments)
 
     pass
 
@@ -49,7 +56,10 @@ if __name__ == '__main__':
                 path = arguments['<path>']
                 lib.check_path(path)
 
-            main(OPS_NEW_PROJECT, arguments)
+            main(Operations.NEW_PROJECT, arguments)
+
+        elif arguments['new'] and arguments['mols']:
+            main(Operations.NEW_MOLS, arguments)
 
     except KeyboardInterrupt:
         pass
