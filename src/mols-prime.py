@@ -4,6 +4,8 @@
 
     Written by PM 2Ring 2016.01.24
     Updated 2021.01.31
+
+    Updated by Andrew Benbow
 """
 
 #from __future__ import print_function
