@@ -118,7 +118,7 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     os.mkdir(tours_path)
 
     # Create the config file
-    config_path = os.path.join(path, 'config.yml')
+    config_path = os.path.join(path, 'perec_config.yml')
     stream = open(config_path, "w")
     config_file = dump(input, stream)
     stream.close()

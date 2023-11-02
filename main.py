@@ -1,15 +1,20 @@
 #!/usr/bin/python3
-"""perec
+
+"""perec is a tool used for generating a list of Oulipian writing prompts
 
 Usage:
     perec new project [<path>]
     perec new mols [<size>] [<number>]
+    perec new latin square [<size>] [<number>]
     perec -h | --help
     perec -v | --version
 
-Options:
+Commands: 
     new project [<path>]  Starts a new perec project. If no path is chosen, the progam will create a new project in the current working directory
+    new latin square [<size>] [<number>]  Generate <number> latin squares of <size>.  If both arguments are omitted, perec will use the info from your current project.
     new mols [<size>] [<number>]  Generate <number> of mututally orthogonal latin square of <size>. If both arguments are omitted, perec will use the info from your current project.
+
+Options:
     -h --help   Shows this screen
     -v --version   Shows the version number of perec
 
@@ -19,11 +24,12 @@ Options:
 ### Imports ###
 from docopt import docopt
 import os
-from src import new, lib
+from src import new, lib, latin_squares
 
 class Operations:
     NEW_PROJECT = "new_project"
     NEW_MOLS = "new_mols"
+    NEW_LS = "new_latin_square"
 
 def main(op: str, arguments: dict) -> None:
     """
@@ -35,8 +41,12 @@ def main(op: str, arguments: dict) -> None:
         case Operations.NEW_PROJECT:
             new.new_project(arguments)
 
+        case Operations.NEW_LS:
+            latin_squares.new_ls(arguments)
+
         case Operations.NEW_MOLS:
             #squares.new_mols(arguments)
+            pass
 
     pass
 
@@ -57,6 +67,9 @@ if __name__ == '__main__':
                 lib.check_path(path)
 
             main(Operations.NEW_PROJECT, arguments)
+        
+        elif arguments['new'] and arguments['latin'] and arguments['square']:
+            main(Operations.NEW_LS, arguments)
 
         elif arguments['new'] and arguments['mols']:
             main(Operations.NEW_MOLS, arguments)

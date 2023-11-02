@@ -1,1 +1,0 @@
-This is the folder I am going to use for testing out various scripts I find online for generating the various puzzles used in `perec`

@@ -1,5 +1,5 @@
 """
-rls.py
+RandomLatinSquares.py
 
 A random latin square generator script
 
@@ -9,7 +9,27 @@ Source: https://rosettacode.org/wiki/Random_Latin_squares#Python
 from random import choice, shuffle
 from copy import deepcopy
 
-def rls(n):
+
+def new_ls(arguments):
+    size = int(arguments['<size>'])
+
+    # Assign a default size until we can pull it from project
+    if not size:
+        size = 5
+    
+    square = make_latin_square(size)
+    while test_square(square) is False:
+        square = make_latin_square(size)
+    
+
+
+
+
+def manage_latin_square(op):
+    pass
+
+
+def make_latin_square(n):
     if n <= 0:
         return []
     else:
@@ -23,6 +43,8 @@ def _shuffle_transpose_shuffle(matrix):
     shuffle(square)
     trans = list(zip(*square))
     shuffle(trans)
+    for i in range(0, len(trans)):
+        trans[i] = list(trans[i])
     return trans
 
 
@@ -53,6 +75,12 @@ def _check(square):
     assert _check_rows(square) and _check_rows(transpose), \
         "Not a Latin square"
 
+def test_square(square):
+    try:
+        _check(square)
+    except AssertionError:
+        return False
+
 def _check_rows(square):
     if not square:
         return True
@@ -62,8 +90,8 @@ def _check_rows(square):
 
 
 if __name__ == '__main__':
-    for i in [4, 4, 4]:
-        square = rls(i)
+    for i in [4, 4]:
+        square = make_latin_square(i)
         print(_to_text(square))
         _check(square)
         print()
