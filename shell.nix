@@ -9,6 +9,8 @@ pkgs.mkShell {
           p.docopt
           p.inquirerpy
           p.pyyaml
+          p.textual
+          p.pip
         ]))
     ];
 }

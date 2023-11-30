@@ -1,0 +1,37 @@
+
+WelcomeScreen {
+    align: center middle;
+}
+
+WelcomeScreen OptionList {
+    width: 70%;
+    height: 80%;
+}
+
+/* Chessboard styling */
+
+Square {
+    max-height: 8;
+    max-width: 8;
+}
+
+.chessboard-ranks-container {
+    width: 2;
+}
+
+.chessboard-rank {
+    height: 3;
+    padding-top: 1;
+
+}
+
+.chessboard-file {
+    width: 8;
+    padding-left: 4;
+}
+
+ChessBoard {
+ width: 100%;
+}
+
+/* End chessboard styling */

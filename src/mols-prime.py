@@ -74,6 +74,10 @@ def mols(n):
                 print(i, j, result)
                 show_grid(newgrid)
 
+
+def create_rotated_variants(grid: list, number: int) -> list:
+    pass
+
 def main():
     # Get order from command line, or use default
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
