@@ -1,11 +1,19 @@
 
-from widgets import TourCreator, ChessBoard
+from ..widgets import TourCreator, ChessBoard
 from textual.screen import Screen
 from textual.app import ComposeResult
 from textual.widgets import Header, Footer
 
 class CreateTourScreen(Screen):
     """ A screen used for creating knight's tours. """
+
+    def __init__(self, board_size: int | None) -> None: 
+        
+        if board_size :
+            self.board_size = board_size
+        else:
+            self.board_size = 8
+        super().__init__()
 
     BINDINGS = [
         ('b', 'app.pop_screen', 'Back'),
@@ -36,5 +44,5 @@ class CreateTourScreen(Screen):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield TourCreator() 
+        yield TourCreator(self.board_size) 
         yield Footer()

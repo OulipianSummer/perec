@@ -1,7 +1,10 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, OptionList, Button
 from textual.reactive import reactive
-from screens import WelcomeScreen, CreateTourScreen
+from .screens import WelcomeScreen, CreateTourScreen
+
+class TuiOperations:
+    NEW_TOUR = 'tui.new_tour'
 
 class Perec(App):
     """A Textual app to manage constrained writing projects."""
@@ -11,6 +14,13 @@ class Perec(App):
         ("d", "toggle_dark", "Toggle dark mode"),
         ('escape', 'quit', 'Quit')
     ]   
+
+    def __init__(self, operation: str | None, arguments: object | None) -> None:
+
+        self.operation = operation    
+        self.arguments = arguments
+
+        super().__init__()
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected):
         """ Respond to selected options. """
@@ -24,7 +34,18 @@ class Perec(App):
 
 
     def on_mount(self) -> None:
-        self.push_screen(WelcomeScreen())
+        
+        match(self.operation):
+
+            case TuiOperations.NEW_TOUR:
+                board_size = 8;
+
+                if self.arguments['<size>']:
+                    board_size = int(self.arguments['<size>'])
+                self.push_screen(CreateTourScreen(board_size = board_size))
+
+            case _:
+                self.push_screen(WelcomeScreen())
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
@@ -35,6 +56,10 @@ class Perec(App):
         self.exit()
 
 
-if __name__ == "__main__":
-    app = Perec()
+def launch_tui(operation: str | None, arguments: object | None):
+    """ Launches the TUI with arguments so it can integrate with the larger CLI application. """
+    app = Perec(operation, arguments)
     app.run()
+
+if __name__ == "__main__":
+    launch_tui()

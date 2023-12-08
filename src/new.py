@@ -1,3 +1,4 @@
+from .chess import *
 from collections import namedtuple
 from InquirerPy import inquirer
 from InquirerPy.prompts.expand import ExpandChoice
@@ -89,7 +90,6 @@ def new_project(arguments: dict) -> None:
 
     return
 
-
 def create_project_folder(arguments: dict, input: dict) -> None:
     """
     Creates a project folder from the given user input and cli arguments.
@@ -132,4 +132,46 @@ def create_project_folder(arguments: dict, input: dict) -> None:
     else:
         print()
         print("The project was not created successfully. Please review your input and try again.")
+
+def create_new_tour(arguments: object | None) -> list[str] | None:
+
+    size =  arguments["<size>"]
+    if not size:
+        size = inquirer.number(
+            message="Enter chessboard size (use your arrow keys):",
+            min_allowed=5,
+            max_allowed=10,
+            mandatory=True,
+            validate=EmptyInputValidator(),
+        ).execute()
+
+    size = int(size)
+
+    start = arguments["--start"]
+    if not start:
+        start = inquirer.text(
+            message="Enter the starting square (a1, b2, etc.):",
+            mandatory=True,
+            validate=EmptyInputValidator(),
+            default="a1"
+        ).execute()
+
+    confirm = inquirer.confirm(
+        message=f"Generate a pseudo-random knight's tour of size {size} starting at square {start}?\n",
+        default=True,
+        confirm_letter="y",
+        reject_letter="n",
+        mandatory=True,
+    ).execute()
+
+    start_x, start_y = chess_notation_to_index(start)
+
+    tour, board = generate_tour(int(size), start_x, start_y)
+    print(tour)
+
+    return tour
+
     
+
+
+

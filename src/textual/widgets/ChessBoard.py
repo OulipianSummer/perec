@@ -5,7 +5,7 @@ from textual.message import Message
 from .Row import Row
 from .Col import Col
 from .Square import Square
-from .chess import *
+from ...chess import *
 
 class ChessBoard(Static):
     """ A widget that renders an interactive chessboard for knight's tours. """
