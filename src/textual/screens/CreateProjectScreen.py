@@ -22,7 +22,8 @@ class CreateProjectScreen(Screen):
             ),
             FormElement(
                 Label("Size"),
-                Input(type="integer", placeholder="A number from 5 to 10")
+                Input(type="integer", placeholder="A number from 5 to 10"),
+                element_id = "project_size"
             )
         ]
 

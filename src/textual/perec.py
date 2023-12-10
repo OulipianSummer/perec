@@ -32,7 +32,7 @@ class Perec(App):
                 pass
 
             case "create_knights_tour":
-                self.push_screen(CreateTourScreen())
+                self.push_screen(CreateTourScreen(board_size = 8))
 
 
     def on_mount(self) -> None:
