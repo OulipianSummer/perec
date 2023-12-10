@@ -1,10 +1,11 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, OptionList, Button
 from textual.reactive import reactive
-from .screens import WelcomeScreen, CreateTourScreen
+from .screens import WelcomeScreen, CreateTourScreen, CreateProjectScreen
 
 class TuiOperations:
     NEW_TOUR = 'tui.new_tour'
+    NEW_PROJECT = 'tui.new_project'
 
 class Perec(App):
     """A Textual app to manage constrained writing projects."""
@@ -27,6 +28,7 @@ class Perec(App):
 
         match event.option_id:
             case 'new_project':
+                self.push_screen(CreateProjectScreen())
                 pass
 
             case "create_knights_tour":
@@ -43,6 +45,10 @@ class Perec(App):
                 if self.arguments['<size>']:
                     board_size = int(self.arguments['<size>'])
                 self.push_screen(CreateTourScreen(board_size = board_size))
+
+            case TuiOperations.NEW_PROJECT:
+
+                self.push_screen(CreateProjectScreen())
 
             case _:
                 self.push_screen(WelcomeScreen())

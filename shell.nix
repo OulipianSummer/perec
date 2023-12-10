@@ -6,10 +6,6 @@ pkgs.mkShell {
         vim
         pipreqs
         (python3.withPackages (p : [
-          p.docopt
-          p.inquirerpy
-          p.pyyaml
-          p.textual
           p.pip
         ]))
     ];
