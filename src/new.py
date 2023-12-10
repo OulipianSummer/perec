@@ -1,3 +1,10 @@
+"""
+new.py
+
+Handles the business logic of creating new things in perec including new projects and the scaffolding files, new tours, and more.
+
+"""
+
 from .chess import *
 from collections import namedtuple
 from InquirerPy import inquirer
@@ -6,7 +13,13 @@ from InquirerPy.validator import EmptyInputValidator
 from .lib import *
 import os
 from .pattern import pluralize
+from typing import Union
 from yaml import dump
+
+
+#---------------------------------------------------------------------------------------|  
+#  Project management
+#---------------------------------------------------------------------------------------|  
 
 def new_project(arguments: dict) -> None:
     """
@@ -82,24 +95,24 @@ def new_project(arguments: dict) -> None:
         "section_type": section_type,
         "lists": [],
         "mols": [],
-        "tour": ""
+        "tour": "",
     }
+    
+    path = arguments['<path>']
 
     # Pass the user input on to another function to create the project folder
-    create_project_folder(arguments, input)
+    initialize_project_scaffolding(input, path)
 
-    return
-
-def create_project_folder(arguments: dict, input: dict) -> None:
+def initialize_project_scaffolding(input: dict, path: Union[str, None]) -> None:
     """
     Creates a project folder from the given user input and cli arguments.
+
+    This function should be useable both from the CLI and the TUI, as needed.
 
     In the future, this should also allow users to pull from pre-defined tours, mols, or lists in their system and list them in config.yml.
     """
     print()
     print("Creating project! Sit tight...")
-
-    path = arguments['<path>']
 
     # If no path was provided at command time, then make one based on the user input and the current working directory
     if path == None: 
@@ -133,9 +146,18 @@ def create_project_folder(arguments: dict, input: dict) -> None:
         print()
         print("The project was not created successfully. Please review your input and try again.")
 
-def create_new_tour(arguments: object | None) -> list[str] | None:
+#---------------------------------------------------------------------------------------|  
+#  End project management
+#---------------------------------------------------------------------------------------|  
 
-    size =  arguments["<size>"]
+#---------------------------------------------------------------------------------------|  
+#  Tour management
+#---------------------------------------------------------------------------------------|
+
+def create_new_tour(arguments: object | None) -> Union[list[str], None]:
+
+    # Parse/gather chessboard size.
+    size = arguments["<size>"]
     if not size:
         size = inquirer.number(
             message="Enter chessboard size (use your arrow keys):",
@@ -147,15 +169,17 @@ def create_new_tour(arguments: object | None) -> list[str] | None:
 
     size = int(size)
 
+    # Parse/gather starting square.
     start = arguments["--start"]
     if not start:
         start = inquirer.text(
             message="Enter the starting square (a1, b2, etc.):",
             mandatory=True,
-            validate=EmptyInputValidator(),
+            validate=lambda result: is_valid_square(result, size),
             default="a1"
         ).execute()
 
+    # Confirm the current selection.
     confirm = inquirer.confirm(
         message=f"Generate a pseudo-random knight's tour of size {size} starting at square {start}?\n",
         default=True,
@@ -164,12 +188,17 @@ def create_new_tour(arguments: object | None) -> list[str] | None:
         mandatory=True,
     ).execute()
 
+    # FIXME: This technically gets calced twice (once above in is_valid_square call). The result should be cached so we don't have to calc the same answer each time.
     start_x, start_y = chess_notation_to_index(start)
 
     tour, board = generate_tour(int(size), start_x, start_y)
-    print(tour)
 
-    return tour
+    if tour:
+        return tour
+
+#---------------------------------------------------------------------------------------|  
+#  End tour management
+#---------------------------------------------------------------------------------------|  
 
     
 

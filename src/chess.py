@@ -1,3 +1,10 @@
+from typing import Union
+import re
+
+#---------------------------------------------------------------------------------------|   
+# Constants and helpers
+#---------------------------------------------------------------------------------------|    
+
 LEGAL_MOVES = [
     [1, 2],
     [1, -2],
@@ -9,14 +16,24 @@ LEGAL_MOVES = [
     [-2, -1],
 ]
 
-def index_to_chess_notation(col: int, row: int, board_size: int) -> str:
+TOUR_TRY_LIMIT = 10
+
+#---------------------------------------------------------------------------------------|   
+# End constants and helpers
+#---------------------------------------------------------------------------------------|    
+
+#---------------------------------------------------------------------------------------|   
+# Index translation
+#---------------------------------------------------------------------------------------|    
+
+def index_to_chess_notation(x: int, y: int, board_size: int) -> str:
     """ Convert 0 indexed coordinates into chess notation."""
 
-    chess_col = chr(ord('a') + col)
-    return chess_col + str(row + 1)
+    chess_col = chr(ord('a') + x)
+    return chess_col + str(y + 1)
 
 
-def chess_notation_to_index(move: str, mode = "human") -> int:
+def chess_notation_to_index(square: str, mode = "human") -> int:
     """ Convert algabraic chess notation to numeric coordinates. Can return 1 indexed and 0 indexed results. """
 
     x_offset = 96
@@ -27,9 +44,17 @@ def chess_notation_to_index(move: str, mode = "human") -> int:
         x_offset = x_offset + 1
         y_offset = y_offset + 1
 
-    x = ord(move[0]) - x_offset
-    y = int(move[1]) - y_offset
+    x = ord(square[0]) - x_offset
+    y = int(square[1]) - y_offset
     return x, y
+
+#---------------------------------------------------------------------------------------|   
+# End index translation
+#---------------------------------------------------------------------------------------|    
+
+#---------------------------------------------------------------------------------------|   
+# Move and square validity
+#---------------------------------------------------------------------------------------|    
 
 def is_valid_move(last: str, selected: str) -> bool:
     """ Compares two moves to see if they adhere to chess knight movements. """  
@@ -48,7 +73,35 @@ def is_valid_move(last: str, selected: str) -> bool:
 
     return False
 
-def generate_tour(size, startx, starty, tries = 0, moveset = LEGAL_MOVES):
+def is_valid_square(square: str, size: int) -> bool:
+    """ Given a square notation, eg, a1, b3, check to see if it is a valid square on a chesssboard of a given size. """
+    
+    square = square.lower()
+    pattern = re.compile("^[a-z][1-9]{1,2}$")
+    
+    # The square coordinate must be properly formatted.
+    if not pattern.search(square):
+        return False
+
+    x,y = chess_notation_to_index(square)
+
+    # The x and y coordinates must not be larger than the board.
+    if x > size or y > size:
+        return False
+
+    return True
+
+    
+ 
+#---------------------------------------------------------------------------------------|   
+# End move and square validity
+#---------------------------------------------------------------------------------------|    
+
+#---------------------------------------------------------------------------------------|   
+# Tour management and generation
+#---------------------------------------------------------------------------------------|    
+
+def generate_tour(size, startx, starty, tries = 0, moveset = LEGAL_MOVES) -> Union[list,bool]:
     """
     A 
 
@@ -105,13 +158,15 @@ def generate_tour(size, startx, starty, tries = 0, moveset = LEGAL_MOVES):
                 possible_moves += 1
         smallest_move = 0
 
-        if possible_moves == 0 and tries > 9:
+        # Try to create a tour up to a limit
+        if possible_moves == 0 and tries > TOUR_TRY_LIMIT:
             tries = tries + 1
             shuffle(moveset)
             return generate_tour(size, startx, starty,tries, moveset)
 
-        if tries == 10:
-            print("Unable to create a tour\n")
+        # Cut our loses if we can't create a tour.
+        if tries == TOUR_TRY_LIMIT:
+            return False
 
         elif possible_moves > 1:
             exits = [0] * size
@@ -148,3 +203,7 @@ def generate_tour(size, startx, starty, tries = 0, moveset = LEGAL_MOVES):
         board[kx][ky] = move  
 
     return coords, board
+
+#---------------------------------------------------------------------------------------|   
+# End tour management and generation
+#--------------------------------------------------------------------------------------|    
