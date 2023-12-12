@@ -4,7 +4,7 @@
 
 Usage:
     perec start
-    perec new project [<path>]
+    perec new project [<path>] [-t | --tui]
     perec new mols [<size>] [<number>]
     perec new latin square [<size>] [<number>]
     perec new tour [<size> | [--tour=<sequence>] [--start=<start_square>]] [-t | --tui]
@@ -66,6 +66,9 @@ def main(op: str, arguments: dict) -> None:
         case Operations.NEW_PROJECT:
             new.new_project(arguments)
 
+        case textual.TuiOperations.NEW_PROJECT:
+            textual.launch_tui(textual.TuiOperations.NEW_PROJECT, arguments)
+
         case Operations.NEW_LS:
             latin_squares.new_ls(arguments)
 
@@ -98,7 +101,11 @@ if __name__ == '__main__':
                 path = arguments['<path>']
                 lib.check_path(path)
 
-            main(Operations.NEW_PROJECT, arguments)
+            if arguments["--tui"]:
+                main(textual.TuiOperations.NEW_PROJECT, arguments)
+            else:
+                main(Operations.NEW_PROJECT, arguments)
+
         
         elif arguments['new'] and arguments['latin'] and arguments['square']:
             main(Operations.NEW_LS, arguments)

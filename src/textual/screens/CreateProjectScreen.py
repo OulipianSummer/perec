@@ -4,6 +4,10 @@ from textual.widgets import Header, Footer, Input, Label
 from ..widgets import Form, FormElement
 
 class CreateProjectScreen(Screen):
+
+    BINDINGS = [
+        ('b', 'app.pop_screen', 'Back'),
+    ]
     
     def compose(self) -> None:
 
@@ -11,19 +15,22 @@ class CreateProjectScreen(Screen):
 
         form = [            
             FormElement(
-                Label("Project Name"),
-                Input(placeholder="My Awesome Project"),
-                element_id = "project_name",
+                element_name = 'Project Name',
+                type = 'text',
+                placeholder = 'My Awesome Project',
+                required = True,
             ),
             FormElement(
-                Label("Description"),
-                Input(placeholder="This project is going to be so cool"),
-                element_id = "project_description",
+                element_name = 'Description',
+                type = 'text',
+                placeholder = 'This project is going to be so cool'
             ),
             FormElement(
-                Label("Size"),
-                Input(type="integer", placeholder="A number from 5 to 10"),
-                element_id = "project_size"
+                element_name = 'Size',
+                type = 'integer',
+                placeholder = 'Enter a number between 5 and 10, excluding 6',
+                required = True,
+                max_length =  2
             )
         ]
 

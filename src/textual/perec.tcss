@@ -35,3 +35,12 @@ ChessBoard {
 }
 
 /* End chessboard styling */
+
+/* Form styling */
+
+Form .required {
+    color: red;
+    padding-left: 1;
+}
+
+/* End Form styling*/
